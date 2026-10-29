@@ -2,6 +2,8 @@
 // the project, on the person's own Claude login, with read-only tools and this
 // app's MCP server, so the flow it draws lands in the viewer like any other.
 import { spawn } from 'node:child_process'
+import fs from 'node:fs'
+import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { PORT } from './viewer.js'
@@ -10,6 +12,9 @@ export const SERVER_NAME = 'code-flow-app'
 const TOOL = `mcp__${SERVER_NAME}__show_code_flow`
 const BIN = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'bin', 'code-flow.js')
 const READ_ONLY = ['Read', 'Grep', 'Glob']
+// Where the native installer puts it, for a viewer started by an app whose PATH doesn't have it.
+const INSTALLED = path.join(os.homedir(), '.local', 'bin', 'claude')
+const CLAUDE = process.env.CODE_FLOW_CLAUDE ?? (fs.existsSync(INSTALLED) ? INSTALLED : 'claude')
 
 export function tracePrompt(scenario) {
   return (
@@ -62,7 +67,7 @@ export function startTrace(root, scenario, onEvent) {
     '--allowedTools',
     [...READ_ONLY, TOOL].join(','),
   ]
-  const child = spawn(process.env.CODE_FLOW_CLAUDE ?? 'claude', args, { cwd: root, stdio: ['ignore', 'pipe', 'pipe'] })
+  const child = spawn(CLAUDE, args, { cwd: root, stdio: ['ignore', 'pipe', 'pipe'] })
   let finished = false
   let stderr = ''
   let buffer = ''
