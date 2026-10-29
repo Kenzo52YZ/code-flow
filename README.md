@@ -24,8 +24,10 @@ Claude Code ──(MCP, stdio)──▶ code-flow mcp ──▶ ~/.code-flow ◀
 ```bash
 git clone <this repo> ~/Projects/code-flow
 cd ~/Projects/code-flow && npm install
-claude mcp add --scope user code-flow-app -- node ~/Projects/code-flow/bin/code-flow.js mcp
+claude mcp add --scope user code-flow-app -- "$(which node)" ~/Projects/code-flow/bin/code-flow.js mcp
 ```
+
+The full path to Node matters when it comes from nvm: the desktop app may not have nvm on its PATH, and would find an older system Node instead. Code Flow needs Node 20 or later.
 
 Then in any project, ask Claude Code something like:
 
