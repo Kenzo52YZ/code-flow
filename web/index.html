@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Code Flow</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect x='1' y='1' width='6' height='4' rx='1' fill='%234f8ef7'/><rect x='9' y='6' width='6' height='4' rx='1' fill='%23f2a33a'/><rect x='1' y='11' width='6' height='4' rx='1' fill='%233fb67b'/></svg>" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <header class="top">
+      <strong class="brand">Code Flow</strong>
+      <select id="project" aria-label="Project"></select>
+      <nav class="tabs" role="tablist" aria-label="View">
+        <button type="button" role="tab" data-tab="flows">Flows</button>
+        <button type="button" role="tab" data-tab="files">Files</button>
+      </nav>
+      <span id="live" class="live" role="status"></span>
+    </header>
+    <main id="main"></main>
+  </body>
+</html>
